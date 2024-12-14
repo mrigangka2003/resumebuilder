@@ -4,7 +4,10 @@ import Link from "next/link";
 import React from "react";
 import GeneralInfoForm from "./forms/GeneralInfoForms";
 import PersonalInfoForm from "./forms/PersonalInforForm";
+import { useSearchParams } from "next/navigation";
+import { steps } from "./steps";
 const ResumeEditor = () => {
+
   return (
     <div className="flex grow flex-col">
       <header className="space-y-1.5 border-b px-3 py-5 text-center">

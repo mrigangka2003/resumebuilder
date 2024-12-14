@@ -29,4 +29,4 @@ export const personalInfoSchema = z.object({
     email:z.string().email()
 })
 
-export type personalInfoSchema = z.infer<typeof personalInfoSchema>
+export type personalInfoValues = z.infer<typeof personalInfoSchema>
