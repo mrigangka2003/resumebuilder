@@ -1,4 +1,4 @@
-import { generalInforSchema, GeneralInfoValues } from "@/lib/validation";
+import { generalInfoSchema, GeneralInfoValues } from "@/lib/validation";
 import {useForm} from "react-hook-form" ;
 import {zodResolver} from "@hookform/resolvers/zod"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 
 const GeneralInfoForm=()=>{
     const form = useForm<GeneralInfoValues>({
-        resolver: zodResolver(generalInforSchema),
+        resolver: zodResolver(generalInfoSchema),
         defaultValues:{
             title:"" ,
             description:""
@@ -41,14 +41,14 @@ const GeneralInfoForm=()=>{
                     />
                     <FormField
                         control = {form.control}
-                        name= "title"
+                        name= "description"
                         render={({field})=>(
                             <FormItem>
                                 <FormLabel>
                                     Description
                                 </FormLabel>
                                 <FormControl>
-                                    <Input {...field} placeholder = "Add your Description" autoFocus/>
+                                    <Input {...field} placeholder = "Add your Description"/>
                                 </FormControl>
                                 <FormDescription>
                                     Descript what this this resume is for

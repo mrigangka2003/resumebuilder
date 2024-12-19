@@ -26,7 +26,7 @@ const Breadcrumbs = ({ currentStep, setCurrentStep }: BreadcrumbsProps) => {
                     )}
                     <BreadcrumbItem>
                     </BreadcrumbItem>
-                    <BreadcrumbSeparator/>
+                    <BreadcrumbSeparator className="last:hidden"/>
                 </React.Fragment>
             ))}
         </BreadcrumbList>

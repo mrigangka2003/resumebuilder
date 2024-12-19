@@ -6,7 +6,25 @@ import GeneralInfoForm from "./forms/GeneralInfoForms";
 import PersonalInfoForm from "./forms/PersonalInforForm";
 import { useSearchParams } from "next/navigation";
 import { steps } from "./steps";
+import Breadcrumbs from "./Breadcrumbs";
+import Footer from "./Footer";
+
+
+
 const ResumeEditor = () => {
+  const searchParams = useSearchParams() ;
+
+  const currentStep = searchParams.get("step") || steps[0].key ;
+
+  function setStep(key:string){
+    const newSearchParams = new URLSearchParams(searchParams) ;
+    newSearchParams.set("step",key)
+    window.history.pushState(null,"",`?${newSearchParams.toString()}`)
+  }
+
+  const FormComponent = steps.find(
+    step => step.key ===currentStep
+  )?.component
 
   return (
     <div className="flex grow flex-col">
@@ -19,9 +37,11 @@ const ResumeEditor = () => {
       </header>
       <main className="relative grow">
         <div className="absolute bottom-0 top-0 flex w-full">
-            <div className="w-full md:w-1/2 p-3 overflow-y-auto">
-                {/* <GeneralInfoForm/> */}
-                <PersonalInfoForm/>
+            <div className="w-full md:w-1/2 p-3 overflow-y-auto space-y-6">
+                <Breadcrumbs currentStep={currentStep} setCurrentStep={setStep}/>
+                {
+                  FormComponent && <FormComponent/>
+                }
             </div>
             <div className="grow md:border-r"/>
             <div className="hidden w-1/2 md:flex">
@@ -29,20 +49,7 @@ const ResumeEditor = () => {
             </div>
         </div>
       </main>
-      <footer className="w-full border-t p-3 py-5">
-        <div className="max-w-7xl mx-auto flex flex-wrap justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <Button variant="secondary">previous step</Button>
-            <Button>Next Step</Button>
-          </div>
-          <div className="flex items-center gap-3">
-            <Button variant="secondary" asChild>
-              <Link href="/resumes">close</Link>
-            </Button>
-            <p className="text-muted-foreground opacity-0">Saving...</p>
-          </div>
-        </div>
-      </footer>
+      <Footer currentStep={currentStep} setCurrentStep={setStep}/>
     </div>
   );
 };
