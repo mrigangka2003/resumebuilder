@@ -2,8 +2,10 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
+import { useState } from "react";
 import GeneralInfoForm from "./forms/GeneralInfoForms";
 import PersonalInfoForm from "./forms/PersonalInforForm";
+import  {ResumeValues}  from "@/lib/validation";
 import { useSearchParams } from "next/navigation";
 import { steps } from "./steps";
 import Breadcrumbs from "./Breadcrumbs";
@@ -15,6 +17,8 @@ const ResumeEditor = () => {
   const searchParams = useSearchParams() ;
 
   const currentStep = searchParams.get("step") || steps[0].key ;
+
+  const [resumeData,setResumeData] = useState<ResumeValues>({})
 
   function setStep(key:string){
     const newSearchParams = new URLSearchParams(searchParams) ;
@@ -40,12 +44,17 @@ const ResumeEditor = () => {
             <div className="w-full md:w-1/2 p-3 overflow-y-auto space-y-6">
                 <Breadcrumbs currentStep={currentStep} setCurrentStep={setStep}/>
                 {
-                  FormComponent && <FormComponent/>
+                  FormComponent && <FormComponent 
+                    resumeData={resumeData}
+                    setResumeData={setResumeData}
+                  />
                 }
             </div>
             <div className="grow md:border-r"/>
             <div className="hidden w-1/2 md:flex">
-                right
+                <pre>
+                  {JSON.stringify(resumeData,null,2)}
+                </pre>
             </div>
         </div>
       </main>
